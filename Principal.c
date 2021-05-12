@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <locale.h>
 #include "cadastroUsuario.h";
 
 typedef struct {	
@@ -13,13 +14,21 @@ typedef struct {
 
 // Função de menu principal
 void menu();
+
 // Função de menu login
 void menuLogin();
 
-int main(){
-	menuLogin();
-}
+// Função de cadastro de usuário
+void cadastroUsuarios(); 
+																				// INÍCIO FUNÇÃO MAIN
 
+int main(){
+	
+	setlocale(LC_ALL, "PORTUGUESE");
+	menuLogin();
+	
+}
+																				// FIM FUNÇÃO MAIN
 void menu(){
 	// Desenvolver menu aqui
 
@@ -33,7 +42,22 @@ void menuLogin(){
 	char email[100];
 	char senha[100];
 	
-	printf("Bem vindo - (1)Login (2)Cadastrar (0)Sair\n");
+	FILE *file;
+	file = fopen("menu_de_boas_vindas.txt", "r");
+	
+	if(file == NULL) {
+		printf("Não foi possível abrir o arquivo...\n");
+		getchar();
+		exit(0);
+	}
+	
+	char mostrarMenu[150];
+	
+	while(fgets(mostrarMenu,150,file) != NULL) {
+		printf("%s", mostrarMenu);
+	}
+	
+	fclose(file);
 	scanf("%d",&opc);
 	
 	Usuario *u = (Usuario*)malloc(sizeof(Usuario));
@@ -42,8 +66,9 @@ void menuLogin(){
 		case 1:
 			// Login
 			break;
+			
 		case 2:
-			// Cadastrar Usuario
+			// Cadastrar Usuário
 			printf("\nEntre com o seu nome completo: ");
 			scanf("\n");
   			scanf("%[^\n]%*c", nomeCompleto);
@@ -65,8 +90,11 @@ void menuLogin(){
   			
 			cadastrar(u);
 			break;
-		default:
-			// Sair
+			
+		case 0:
+			system("cls");
+			printf("\nObrigado por usar nosso programa!\n\nPrograma fechando...");
+			sleep(1);
 			break;
 	}
 }
