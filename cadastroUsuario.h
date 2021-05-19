@@ -17,5 +17,5 @@ void cadastrar(Usuario *usuario){
 	users = (Usuario*)realloc(users,(tamanho+1)*sizeof(Usuario));
 	users[tamanho] = *usuario;
 	tamanho++;
-	printf("\nCadastrado...");
+	printf("\nCadastrado com sucesso!\n");
 }

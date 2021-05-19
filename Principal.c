@@ -25,7 +25,12 @@ void cadastroUsuarios();
 int main(){
 	
 	setlocale(LC_ALL, "PORTUGUESE");
-	menuLogin();
+	int opc = 1;
+	
+	while (opc != 0) {
+		menuLogin(opc);		
+	}
+
 	
 }
 																				// FIM FUNÇÃO MAIN
@@ -34,8 +39,7 @@ void menu(){
 
 }
 
-void menuLogin(){
-	int opc;
+void menuLogin(int opc){
 	
 	char nomeCompleto[100];
 	char nomeUsuario[100];
@@ -69,6 +73,27 @@ void menuLogin(){
 			
 		case 2:
 			// Cadastrar Usuário
+			
+			system("cls");
+			
+			file = fopen("menu_cadastrar.txt", "r");
+	
+			if(file == NULL) {
+				printf("Não foi possível abrir o arquivo...\n");
+				getchar();
+				exit(0);
+			}
+			
+			char mostrarMenu[150];
+			
+			while(fgets(mostrarMenu,150,file) != NULL) {
+				printf("%s", mostrarMenu);
+			}
+			
+			fclose(file);
+			
+			printf("\n\n");
+			
 			printf("\nEntre com o seu nome completo: ");
 			scanf("\n");
   			scanf("%[^\n]%*c", nomeCompleto);
@@ -88,13 +113,19 @@ void menuLogin(){
   			strcpy(u->email,email);
   			strcpy(u->senha,senha);
   			
+  			printf("\nCadastrando usuário...\n");
+  			sleep(1);
+  			
 			cadastrar(u);
+			sleep(1);
+			system("cls");
+			
 			break;
 			
 		case 0:
 			system("cls");
 			printf("\nObrigado por usar nosso programa!\n\nPrograma fechando...");
 			sleep(1);
-			break;
+			exit(0);
 	}
 }
