@@ -11,11 +11,11 @@ typedef struct {
 } Usuario;
 
 Usuario *users;
-int tamanho=0;
+int usuCadastrados=0;
 
 void cadastrar(Usuario *usuario){
-	users = (Usuario*)realloc(users,(tamanho+1)*sizeof(Usuario));
-	users[tamanho] = *usuario;
-	tamanho++;
+	users = (Usuario*)realloc(users,(usuCadastrados+1)*sizeof(Usuario));
+	users[usuCadastrados] = *usuario;
+	usuCadastrados++;
 	printf("\nCadastrado com sucesso!\n");
 }

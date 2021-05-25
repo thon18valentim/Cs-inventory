@@ -26,12 +26,10 @@ int main(){
 	
 	setlocale(LC_ALL, "PORTUGUESE");
 	int opc = 1;
-	
+
 	while (opc != 0) {
 		menuLogin(opc);		
 	}
-
-	
 }
 																				// FIM FUNÇÃO MAIN
 void menu(){
@@ -69,57 +67,18 @@ void menuLogin(int opc){
 	switch(opc){
 		case 1:
 			// Login
+			if(usuCadastrados == 0) {
+				printf("\n\t\t\t\t\tAinda não há usuários cadastrados aqui...\n");
+				sleep(2);
+				system("cls");
+				break;
+			}
+			else loginUsuarios();
 			break;
 			
 		case 2:
 			// Cadastrar Usuário
-			
-			system("cls");
-			
-			file = fopen("menu_cadastrar.txt", "r");
-	
-			if(file == NULL) {
-				printf("Não foi possível abrir o arquivo...\n");
-				getchar();
-				exit(0);
-			}
-			
-			char mostrarMenu[150];
-			
-			while(fgets(mostrarMenu,150,file) != NULL) {
-				printf("%s", mostrarMenu);
-			}
-			
-			fclose(file);
-			
-			printf("\n\n");
-			
-			printf("\nEntre com o seu nome completo: ");
-			scanf("\n");
-  			scanf("%[^\n]%*c", nomeCompleto);
-			printf("\nEntre com o nome do seu usuario: ");
-			scanf("\n");
-  			scanf("%[^\n]%*c", nomeUsuario);
-			printf("\nEntre com o seu email: ");
-			scanf("\n");
-  			scanf("%[^\n]%*c", email);
-			printf("\nEntre com a sua senha: ");
-			// Verificar funcao de senha posteriormente
-			scanf("\n");
-  			scanf("%[^\n]%*c", senha);
-  			
-  			strcpy(u->nomeCompleto,nomeCompleto);
-  			strcpy(u->nomeUsuario,nomeUsuario);
-  			strcpy(u->email,email);
-  			strcpy(u->senha,senha);
-  			
-  			printf("\nCadastrando usuário...\n");
-  			sleep(1);
-  			
-			cadastrar(u);
-			sleep(1);
-			system("cls");
-			
+			cadastroUsuarios();	
 			break;
 			
 		case 0:
@@ -128,4 +87,94 @@ void menuLogin(int opc){
 			sleep(1);
 			exit(0);
 	}
+}
+
+void cadastroUsuarios(char nomeCompleto[], char nomeUsuario[], char email[], char senha[], Usuario *u) {
+	
+	system("cls");
+	
+	FILE *file;
+	
+	file = fopen("menu_cadastrar.txt", "r");
+
+	if(file == NULL) {
+		printf("Não foi possível abrir o arquivo...\n");
+		getchar();
+		exit(0);
+	}
+	
+	char mostrarMenu[150];
+	
+	while(fgets(mostrarMenu,150,file) != NULL) {
+		printf("%s", mostrarMenu);
+	}
+	
+	fclose(file);
+	
+	printf("\n\n");
+	
+	printf("\nEntre com o seu nome completo: ");
+	scanf("\n");
+	scanf("%[^\n]%*c", nomeCompleto);
+	printf("\nEntre com o nome do seu usuario: ");
+	scanf("\n");
+	scanf("%[^\n]%*c", nomeUsuario);
+	printf("\nEntre com o seu email: ");
+	scanf("\n");
+	scanf("%[^\n]%*c", email);
+	printf("\nEntre com a sua senha: ");
+	// Verificar funcao de senha posteriormente
+	scanf("\n");
+	scanf("%[^\n]%*c", senha);
+	
+	strcpy(u->nomeCompleto,nomeCompleto);
+	strcpy(u->nomeUsuario,nomeUsuario);
+	strcpy(u->email,email);
+	strcpy(u->senha,senha);
+	
+	FILE *enviaBDD;
+	enviaBDD = fopen("banco_de_usuarios.txt", "w");
+	fprintf(enviaBDD,nomeCompleto);
+	fclose(enviaBDD);
+	
+	printf("\nCadastrando usuário...\n");
+	sleep(1);
+	
+	cadastrar(u);
+	sleep(1);
+	system("cls");
+}
+
+void loginUsuarios() {
+	
+	system("cls");
+	
+	FILE *file;
+	
+	file = fopen("menu_login.txt", "r");
+
+	if(file == NULL) {
+		printf("Não foi possível abrir o arquivo...\n");
+		getchar();
+		exit(0);
+	}
+	
+	char mostrarMenu[150];
+	
+	while(fgets(mostrarMenu,150,file) != NULL) {
+		printf("%s", mostrarMenu);
+	}
+	
+	fclose(file);
+	
+	printf("\n\n");
+	
+	printf("\t\tEntre com o seu nome: ");
+	//scanf();
+	printf("\n\t\tEntre com a sua senha: ");
+	//scan();
+	
+	system("pause");
+	
+	system("cls");
 }
