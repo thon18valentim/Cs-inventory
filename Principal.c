@@ -19,7 +19,7 @@ void menu();
 void menuLogin();
 
 // Função de cadastro de usuário
-void cadastroUsuarios(); 
+void cadastroUsuarios(Usuario* u); 
 																				// INÍCIO FUNÇÃO MAIN
 
 int main(){
@@ -78,7 +78,53 @@ void menuLogin(int opc){
 			
 		case 2:
 			// Cadastrar Usuário
-			cadastroUsuarios();	
+			
+			system("cls");
+			
+			Usuario *u;
+			
+			FILE *file;
+			
+			file = fopen("menu_cadastrar.txt", "r");
+		
+			if(file == NULL) {
+				printf("Não foi possível abrir o arquivo...\n");
+				getchar();
+				exit(0);
+			}
+			
+			char mostrarMenu[150];
+			
+			while(fgets(mostrarMenu,150,file) != NULL) {
+				printf("%s", mostrarMenu);
+			}
+			
+			fclose(file);
+			
+			printf("\n\n");
+		
+			u = (Usuario* ) malloc(sizeof(Usuario));
+			
+			printf("\nEntre com o seu nome completo: ");
+			scanf("\n");
+			scanf("%[^\n]%*c", nomeCompleto);
+			printf("\nEntre com o nome do seu usuario: ");
+			scanf("\n");
+			scanf("%[^\n]%*c", nomeUsuario);
+			printf("\nEntre com o seu email: ");
+			scanf("\n");
+			scanf("%[^\n]%*c", email);
+			printf("\nEntre com a sua senha: ");
+			// Verificar funcao de senha posteriormente
+			scanf("\n");
+			scanf("%[^\n]%*c", senha);
+			
+			strcpy(u->nomeCompleto,nomeCompleto);
+			strcpy(u->nomeUsuario,nomeUsuario);
+			strcpy(u->email,email);
+			strcpy(u->senha,senha);
+			
+			cadastroUsuarios(u);	
 			break;
 			
 		case 0:
@@ -89,52 +135,11 @@ void menuLogin(int opc){
 	}
 }
 
-void cadastroUsuarios(char nomeCompleto[], char nomeUsuario[], char email[], char senha[], Usuario *u) {
-	
-	system("cls");
-	
-	FILE *file;
-	
-	file = fopen("menu_cadastrar.txt", "r");
-
-	if(file == NULL) {
-		printf("Não foi possível abrir o arquivo...\n");
-		getchar();
-		exit(0);
-	}
-	
-	char mostrarMenu[150];
-	
-	while(fgets(mostrarMenu,150,file) != NULL) {
-		printf("%s", mostrarMenu);
-	}
-	
-	fclose(file);
-	
-	printf("\n\n");
-	
-	printf("\nEntre com o seu nome completo: ");
-	scanf("\n");
-	scanf("%[^\n]%*c", nomeCompleto);
-	printf("\nEntre com o nome do seu usuario: ");
-	scanf("\n");
-	scanf("%[^\n]%*c", nomeUsuario);
-	printf("\nEntre com o seu email: ");
-	scanf("\n");
-	scanf("%[^\n]%*c", email);
-	printf("\nEntre com a sua senha: ");
-	// Verificar funcao de senha posteriormente
-	scanf("\n");
-	scanf("%[^\n]%*c", senha);
-	
-	strcpy(u->nomeCompleto,nomeCompleto);
-	strcpy(u->nomeUsuario,nomeUsuario);
-	strcpy(u->email,email);
-	strcpy(u->senha,senha);
+void cadastroUsuarios(Usuario *u) {
 	
 	FILE *enviaBDD;
-	enviaBDD = fopen("banco_de_usuarios.txt", "w");
-	fprintf(enviaBDD,nomeCompleto);
+	enviaBDD = fopen("banco_de_usuarios.txt", "a");
+	fputs(u->nomeCompleto,enviaBDD);
 	fclose(enviaBDD);
 	
 	printf("\nCadastrando usuário...\n");
