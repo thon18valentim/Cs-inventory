@@ -49,8 +49,15 @@ void lerBanco(){
 
 void lerUsers(){
 	int i;
+	
+	printf("==========================\n");
 	for(i=0;i<usuCadastrados;i++){
-		printf("%s\n",users[i].nomeCompleto);
+		
+		printf("||\tUsuário: %d\t||\n",i);
+		printf("\tNome.: %s\t\n",users[i].nomeCompleto);
+		printf("\tSenha: %s\t\n",users[i].senha);
+		printf("||\t\t\t||\n");
+		printf("==========================\n");
 		fflush(stdin);
 	}
 }

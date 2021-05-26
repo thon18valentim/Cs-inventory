@@ -27,7 +27,6 @@ void loginUsuarios();
 int main(){
 	
 	lerBanco();
-	//lerUsers();
 	
 	setlocale(LC_ALL, "PORTUGUESE");
 	int opc = 1;
@@ -132,6 +131,16 @@ void menuLogin(int opc){
 			strcpy(u->senha,senha);
 			
 			cadastroUsuarios(u);	
+			break;
+		
+		case 3:
+			system("cls");
+			
+			lerUsers();
+			printf("\n\n");
+			system("pause");
+			
+			system("cls");
 			break;
 			
 		case 0:

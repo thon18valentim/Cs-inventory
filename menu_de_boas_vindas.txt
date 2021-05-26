@@ -13,10 +13,10 @@
 				||							||
 				||		     (1) - Login			||
 				||		     (2) - Cadastrar			||
-				||		     (3) - ...				||
+				||		     (3) - Listar Usuarios Disponiveis	||
 				||							||
 				||		     (0) - Sair				||
 				||							||
 				==========================================================
 
-						    Opção desejada: 
+						    Opcao desejada: 
