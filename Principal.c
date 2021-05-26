@@ -20,9 +20,14 @@ void menuLogin();
 
 // Função de cadastro de usuário
 void cadastroUsuarios(Usuario* u); 
+
+void loginUsuarios();
 																				// INÍCIO FUNÇÃO MAIN
 
 int main(){
+	
+	lerBanco();
+	//lerUsers();
 	
 	setlocale(LC_ALL, "PORTUGUESE");
 	int opc = 1;
@@ -73,7 +78,9 @@ void menuLogin(int opc){
 				system("cls");
 				break;
 			}
-			else loginUsuarios();
+			else {
+				loginUsuarios();
+			}
 			break;
 			
 		case 2:
@@ -139,7 +146,10 @@ void cadastroUsuarios(Usuario *u) {
 	
 	FILE *enviaBDD;
 	enviaBDD = fopen("banco_de_usuarios.txt", "a");
-	fputs(u->nomeCompleto,enviaBDD);
+	fputs(strncat(u->nomeCompleto,";",1),enviaBDD);
+	fputs(strncat(u->nomeUsuario,";",1),enviaBDD);
+	fputs(strncat(u->email,";",1),enviaBDD);
+	fputs(strncat(u->senha,"\n",1),enviaBDD);
 	fclose(enviaBDD);
 	
 	printf("\nCadastrando usuário...\n");
@@ -155,6 +165,9 @@ void loginUsuarios() {
 	system("cls");
 	
 	FILE *file;
+	
+	char nomeU [20];
+	char senhaU [20];
 	
 	file = fopen("menu_login.txt", "r");
 
@@ -175,9 +188,9 @@ void loginUsuarios() {
 	printf("\n\n");
 	
 	printf("\t\tEntre com o seu nome: ");
-	//scanf();
+	scanf("%s",nomeU);
 	printf("\n\t\tEntre com a sua senha: ");
-	//scan();
+	scanf("%s",senhaU);
 	
 	system("pause");
 	
