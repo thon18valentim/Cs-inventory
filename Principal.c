@@ -197,11 +197,15 @@ void loginUsuarios() {
 	printf("\n\n");
 	
 	printf("\t\tEntre com o seu nome: ");
-	scanf("%s",nomeU);
+	scanf("\n");
+	scanf("%[^\n]%*c", nomeU);
 	printf("\n\t\tEntre com a sua senha: ");
-	scanf("%s",senhaU);
+	scanf("\n");
+	scanf("%[^\n]%*c", senhaU);
 	
-	system("pause");
+	existeLogin(nomeU,senhaU);
 	
-	system("cls");
+	//system("pause");
+	
+	//system("cls");
 }

@@ -38,6 +38,7 @@ void lerBanco(){
 		strcpy(user->nomeUsuario,strtok(NULL,";"));
 		strcpy(user->email,strtok(NULL,";"));
 		strcpy(user->senha,strtok(NULL,";"));
+		user->senha[strcspn(user->senha,"\n")] = 0;
 		users = (Usuario*)realloc(users,(usuCadastrados+1)*sizeof(Usuario));
 		users[usuCadastrados] = *user;
 		free(user);
@@ -60,4 +61,19 @@ void lerUsers(){
 		printf("==========================\n");
 		fflush(stdin);
 	}
+}
+
+void existeLogin(char *nome, char *senha){
+	
+	int i;
+	
+	for(i=0; i<usuCadastrados; i++){
+		if(strcmp(users[i].nomeUsuario,nome) == 0){
+			printf("\nAchou nome");
+			if(strcmp(users[i].senha,senha) == 0){
+				printf("\nAchou senha");
+			}
+		}
+	}
+	
 }
