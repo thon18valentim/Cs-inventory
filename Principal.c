@@ -59,6 +59,7 @@ int menuLogin(int opc, int loginReconhecido){
 	
 	FILE *file;
 	file = fopen("menu_de_boas_vindas.txt", "r");
+	printf("...");
 	
 	if(file == NULL) {
 		printf("Não foi possível abrir o arquivo...\n");
