@@ -4,14 +4,6 @@
 #include <locale.h>
 #include "cadastroUsuario.h";
 
-typedef struct {	
-	char nome[30];
-	char tipo[30];
-	float condicao;
-	char raridade[15];
-	float valor; 
-} Item;
-
 int loginReconhecido = 0;
 
 // Função de menu principal
@@ -42,6 +34,7 @@ int main(){
 		loginReconhecido = menuLogin(opc, loginReconhecido);		
 	}
 	
+	lerBancoItens();
 	menuPrincipal();
 }
 																				// FIM FUNÇÃO MAIN
@@ -59,7 +52,6 @@ int menuLogin(int opc, int loginReconhecido){
 	
 	FILE *file;
 	file = fopen("menu_de_boas_vindas.txt", "r");
-	printf("...");
 	
 	if(file == NULL) {
 		printf("Não foi possível abrir o arquivo...\n");
@@ -229,6 +221,13 @@ void menuPrincipal() {
 	
 	char nomeU [20];
 	char senhaU [20];
+	int opc;
+	
+	char tipo[30];
+	char condicao[30];
+	char nome[30];
+	char valor[8];
+	char raridade[30];
 	
 	file = fopen("gif_menu_principal.txt", "r");
 
@@ -247,5 +246,73 @@ void menuPrincipal() {
 	
 	fclose(file);
 	
+	printf("\n\n(1) Cadastrar novo Item");
+	printf("\n(2) Listar Itens");
+	scanf("%d",&opc);
+	
+	switch(opc){
+		case 1:
+			system("cls");
+			
+			Item *i;
+			
+			i = (Item* ) malloc(sizeof(Item));
+			
+			printf("\nEntre com o tipo do item:");
+			scanf("\n");
+			scanf("%[^\n]%*c", tipo);
+			printf("\nEntre com o nome:");
+			scanf("\n");
+			scanf("%[^\n]%*c", nome);
+			printf("\nEntre com a condicao:");
+			scanf("\n");
+			scanf("%[^\n]%*c", condicao);
+			printf("\nEnte com o valor:");
+			scanf("\n");
+			scanf("%[^\n]%*c", valor);
+			printf("\nEntre com a raridade:");
+			scanf("\n");
+			scanf("%[^\n]%*c", raridade);
+			
+			strcpy(i->tipo,tipo);
+			strcpy(i->nome,nome);
+			strcpy(i->condicao,condicao);
+			strcpy(i->valor,valor);
+			strcpy(i->raridade,raridade);
+			
+			cadastrandoItem(i);	
+			break;
+		case 2:
+			system("cls");
+			
+			lerItens();
+			printf("\n\n");
+			system("pause");
+			
+			system("cls");
+			break;
+			
+			
+	}
+	
 	system("pause");
+}
+
+void cadastrandoItem(Item *i){
+	
+	FILE *enviaItem;
+	enviaItem = fopen("banco_de_itens.txt","a");
+	fputs(strncat(i->condicao,";",1),enviaItem);
+	fputs(strncat(i->nome,";",1),enviaItem);
+	fputs(strncat(i->raridade,";",1),enviaItem);
+	fputs(strncat(i->tipo,";",1),enviaItem);
+	fputs(strncat(i->valor,";",1),enviaItem);
+	fclose(enviaItem);
+	
+	printf("\nCadastrando item...\n");
+	sleep(1);
+	
+	inserir(i);
+	sleep(1);
+	system("cls");
 }

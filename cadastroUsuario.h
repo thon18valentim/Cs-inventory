@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "cadastro.h";
 
 // Desenvolva aqui todas as funções referentes ao login
 
@@ -9,6 +10,9 @@ typedef struct {
 	char nomeUsuario[20];
 	char email[30];
 	char senha[20];
+	
+	Item *itens;
+	
 } Usuario;
 
 Usuario *users;
