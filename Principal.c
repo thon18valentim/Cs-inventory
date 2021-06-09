@@ -12,16 +12,20 @@ typedef struct {
 	float valor; 
 } Item;
 
+int loginReconhecido = 0;
+
 // Função de menu principal
 void menu();
 
 // Função de menu login
-void menuLogin();
+int menuLogin();
 
 // Função de cadastro de usuário
 void cadastroUsuarios(Usuario* u); 
 
-void loginUsuarios();
+int loginUsuarios(int loginReconhecido);
+
+void menuPrincipal();
 																				// INÍCIO FUNÇÃO MAIN
 
 int main(){
@@ -31,9 +35,14 @@ int main(){
 	setlocale(LC_ALL, "PORTUGUESE");
 	int opc = 1;
 
-	while (opc != 0) {
-		menuLogin(opc);		
+	while (1) {
+		if (loginReconhecido == 2) {
+			break;
+		}
+		loginReconhecido = menuLogin(opc, loginReconhecido);		
 	}
+	
+	menuPrincipal();
 }
 																				// FIM FUNÇÃO MAIN
 void menu(){
@@ -41,7 +50,7 @@ void menu(){
 
 }
 
-void menuLogin(int opc){
+int menuLogin(int opc, int loginReconhecido){
 	
 	char nomeCompleto[100];
 	char nomeUsuario[100];
@@ -78,7 +87,7 @@ void menuLogin(int opc){
 				break;
 			}
 			else {
-				loginUsuarios();
+				loginUsuarios(loginReconhecido);
 			}
 			break;
 			
@@ -169,7 +178,7 @@ void cadastroUsuarios(Usuario *u) {
 	system("cls");
 }
 
-void loginUsuarios() {
+int loginUsuarios(int loginReconhecido) {
 	
 	system("cls");
 	
@@ -203,9 +212,39 @@ void loginUsuarios() {
 	scanf("\n");
 	scanf("%[^\n]%*c", senhaU);
 	
-	existeLogin(nomeU,senhaU);
+	loginReconhecido = existeLogin(nomeU,senhaU, loginReconhecido);
+	
+	return loginReconhecido;
 	
 	//system("pause");
 	
 	//system("cls");
+}
+
+void menuPrincipal() {
+	system("cls");
+	
+	FILE *file;
+	
+	char nomeU [20];
+	char senhaU [20];
+	
+	file = fopen("gif_menu_principal.txt", "r");
+
+	if(file == NULL) {
+		printf("Não foi possível abrir o arquivo...\n");
+		getchar();
+		exit(0);
+	}
+	
+	char mostrarMenu[150];
+	
+	while(fgets(mostrarMenu,150,file) != NULL) {
+		sleep(1);
+		printf("%s", mostrarMenu);
+	}
+	
+	fclose(file);
+	
+	system("pause");
 }

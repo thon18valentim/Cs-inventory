@@ -13,6 +13,7 @@ typedef struct {
 
 Usuario *users;
 int usuCadastrados=0;
+int loginAcesso = 0;
 
 void cadastrar(Usuario *usuario){
 	users = (Usuario*)realloc(users,(usuCadastrados+1)*sizeof(Usuario));
@@ -63,17 +64,23 @@ void lerUsers(){
 	}
 }
 
-void existeLogin(char *nome, char *senha){
+int existeLogin(char *nome, char *senha, int loginAcesso){
 	
 	int i;
 	
 	for(i=0; i<usuCadastrados; i++){
 		if(strcmp(users[i].nomeUsuario,nome) == 0){
 			printf("\nAchou nome");
-			if(strcmp(users[i].senha,senha) == 0){
-				printf("\nAchou senha");
-			}
+			loginAcesso++;
+			
+		if(strcmp(users[i].senha,senha) == 0){
+			printf("\nAchou senha");
+			loginAcesso++;
+		}
 		}
 	}
-	
+	if (loginAcesso < 2 ) {
+			loginAcesso = 0;
+		}
+	return loginAcesso;
 }
