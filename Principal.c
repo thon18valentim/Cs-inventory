@@ -17,6 +17,8 @@ void cadastroUsuarios(Usuario* u);
 
 int loginUsuarios(int loginReconhecido);
 
+void entrando_main_menu();
+
 void menuPrincipal();
 																				// INÍCIO FUNÇÃO MAIN
 
@@ -35,6 +37,7 @@ int main(){
 	}
 	
 	lerBancoItens();
+	entrando_main_menu();
 	menuPrincipal();
 }
 																				// FIM FUNÇÃO MAIN
@@ -214,6 +217,31 @@ int loginUsuarios(int loginReconhecido) {
 	//system("cls");
 }
 
+void entrando_main_menu() {
+	
+	system("cls");
+	
+	FILE *file;
+	
+	file = fopen("gif_bem-vindo.txt", "r");
+
+	if(file == NULL) {
+		printf("Não foi possível abrir o arquivo...\n");
+		getchar();
+		exit(0);
+	}
+	
+	char mostrarMenu[150];
+	
+	while(fgets(mostrarMenu,150,file) != NULL) {
+		printf("%s", mostrarMenu);
+		sleep(1);
+	}
+	
+	sleep(2);
+	fclose(file);
+}
+
 void menuPrincipal() {
 	system("cls");
 	
@@ -229,7 +257,7 @@ void menuPrincipal() {
 	char valor[8];
 	char raridade[30];
 	
-	file = fopen("gif_menu_principal.txt", "r");
+	file = fopen("menu_principal.txt", "r");
 
 	if(file == NULL) {
 		printf("Não foi possível abrir o arquivo...\n");
@@ -240,17 +268,15 @@ void menuPrincipal() {
 	char mostrarMenu[150];
 	
 	while(fgets(mostrarMenu,150,file) != NULL) {
-		sleep(1);
 		printf("%s", mostrarMenu);
 	}
 	
 	fclose(file);
 	
-	printf("\n\n(1) Cadastrar novo Item");
-	printf("\n(2) Listar Itens");
-	scanf("%d",&opc);
+	scanf("%d", opc);
 	
 	switch(opc){
+		
 		case 1:
 			system("cls");
 			
@@ -282,6 +308,7 @@ void menuPrincipal() {
 			
 			cadastrandoItem(i);	
 			break;
+			
 		case 2:
 			system("cls");
 			
@@ -291,8 +318,9 @@ void menuPrincipal() {
 			
 			system("cls");
 			break;
-			
-			
+		
+		case 0:
+			break;
 	}
 	
 	system("pause");
@@ -301,12 +329,15 @@ void menuPrincipal() {
 void cadastrandoItem(Item *i){
 	
 	FILE *enviaItem;
+	
 	enviaItem = fopen("banco_de_itens.txt","a");
+	
 	fputs(strncat(i->condicao,";",1),enviaItem);
 	fputs(strncat(i->nome,";",1),enviaItem);
 	fputs(strncat(i->raridade,";",1),enviaItem);
 	fputs(strncat(i->tipo,";",1),enviaItem);
 	fputs(strncat(i->valor,";",1),enviaItem);
+	
 	fclose(enviaItem);
 	
 	printf("\nCadastrando item...\n");
