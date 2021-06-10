@@ -19,7 +19,11 @@ int loginUsuarios(int loginReconhecido);
 
 void entrando_main_menu();
 
+void cadastrandoItem();
+
 void menuPrincipal();
+
+int removerItens();
 																				// INÍCIO FUNÇÃO MAIN
 
 int main(){
@@ -37,7 +41,7 @@ int main(){
 	}
 	
 	lerBancoItens();
-	entrando_main_menu();
+	//entrando_main_menu();
 	menuPrincipal();
 }
 																				// FIM FUNÇÃO MAIN
@@ -273,7 +277,7 @@ void menuPrincipal() {
 	
 	fclose(file);
 	
-	scanf("%d", opc);
+	scanf("%d", &opc);
 	
 	switch(opc){
 		
@@ -319,6 +323,16 @@ void menuPrincipal() {
 			system("cls");
 			break;
 		
+		case 3:
+			system("cls");
+			
+			removerItens();
+			printf("\n\n");
+			system("pause");
+			
+			system("cls");
+			break;
+		
 		case 0:
 			break;
 	}
@@ -346,4 +360,26 @@ void cadastrandoItem(Item *i){
 	inserir(i);
 	sleep(1);
 	system("cls");
+}
+
+int removerItens() {
+	
+	FILE *file;
+	
+	file = fopen("removendo_itens.txt", "r");
+
+	if(file == NULL) {
+		printf("Não foi possível abrir o arquivo...\n");
+		getchar();
+		exit(0);
+	}
+	
+	char mostrarTela[150];
+	
+	while(fgets(mostrarTela,150,file) != NULL) {
+		printf("%s", mostrarTela);
+	}
+	
+	fclose(file);
+	
 }

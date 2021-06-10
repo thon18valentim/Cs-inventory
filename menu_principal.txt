@@ -12,10 +12,9 @@
 			 ||   Escolha uma opcao para prosseguir com o programa! ||
 			 ||							||
 			 ||		     (1) - Cadastrar itens		||
-			 ||		     (2) - Ver itens cadastrados	||
+			 ||		     (2) - Listar itens cadastrados	||
 			 ||		     (3) - Remover itens		||
-			 ||		     (4) - Ver carteira			||
-			 ||		     (5) - Vender itens			||
+			 ||		     (4) - Pesquisar itens		||
 			 ||							||
 			 ||		     (0) - Sair				||
 			 ||							||
