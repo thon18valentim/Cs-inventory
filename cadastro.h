@@ -58,7 +58,7 @@ void lerItens(){
 	printf("==========================\n");
 	for(i=0;i<itensCadastrados;i++){
 		
-		printf("||\tItem: %d\t||\n",i);
+		printf("||\tItem: %d\t||\n",i+1);
 		printf("\tNome.: %s\t\n",itens[i].nome);
 		printf("\tTipo: %s\t\n",itens[i].tipo);
 		printf("||\t\t\t||\n");
