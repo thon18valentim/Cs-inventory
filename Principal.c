@@ -247,9 +247,8 @@ void entrando_main_menu() {
 }
 
 void menuPrincipal() {
-	system("cls");
 	
-	FILE *file;
+	system("cls");
 	
 	char nomeU [20];
 	char senhaU [20];
@@ -261,83 +260,87 @@ void menuPrincipal() {
 	char valor[8];
 	char raridade[30];
 	
-	file = fopen("menu_principal.txt", "r");
+	while(opc != 0) {
+		FILE *file;
 
-	if(file == NULL) {
-		printf("Não foi possível abrir o arquivo...\n");
-		getchar();
-		exit(0);
-	}
+		file = fopen("menu_principal.txt", "r");
 	
-	char mostrarMenu[150];
-	
-	while(fgets(mostrarMenu,150,file) != NULL) {
-		printf("%s", mostrarMenu);
-	}
-	
-	fclose(file);
-	
-	scanf("%d", &opc);
-	
-	switch(opc){
+		if(file == NULL) {
+			printf("Não foi possível abrir o arquivo...\n");
+			getchar();
+			exit(0);
+		}
 		
-		case 1:
-			system("cls");
-			
-			Item *i;
-			
-			i = (Item* ) malloc(sizeof(Item));
-			
-			printf("\nEntre com o tipo do item:");
-			scanf("\n");
-			scanf("%[^\n]%*c", tipo);
-			printf("\nEntre com o nome:");
-			scanf("\n");
-			scanf("%[^\n]%*c", nome);
-			printf("\nEntre com a condicao:");
-			scanf("\n");
-			scanf("%[^\n]%*c", condicao);
-			printf("\nEnte com o valor:");
-			scanf("\n");
-			scanf("%[^\n]%*c", valor);
-			printf("\nEntre com a raridade:");
-			scanf("\n");
-			scanf("%[^\n]%*c", raridade);
-			
-			strcpy(i->tipo,tipo);
-			strcpy(i->nome,nome);
-			strcpy(i->condicao,condicao);
-			strcpy(i->valor,valor);
-			strcpy(i->raridade,raridade);
-			
-			cadastrandoItem(i);	
-			break;
-			
-		case 2:
-			system("cls");
-			
-			lerItens();
-			printf("\n\n");
-			system("pause");
-			
-			system("cls");
-			break;
+		char mostrarMenu[150];
 		
-		case 3:
-			system("cls");
-			
-			removerItens();
-			printf("\n\n");
-			system("pause");
-			
-			system("cls");
-			break;
+		while(fgets(mostrarMenu,150,file) != NULL) {
+			printf("%s", mostrarMenu);
+		}
 		
-		case 0:
-			break;
-	}
-	
-	system("pause");
+		fclose(file);
+		
+		scanf("%d", &opc);
+		
+		switch(opc){
+			
+			case 1:
+				system("cls");
+				
+				Item *i;
+				
+				i = (Item* ) malloc(sizeof(Item));
+				
+				printf("\nEntre com o tipo do item: ");
+				scanf("\n");
+				scanf("%[^\n]%*c", tipo);
+				printf("\nEntre com o nome: ");
+				scanf("\n");
+				scanf("%[^\n]%*c", nome);
+				printf("\nEntre com a condicao: ");
+				scanf("\n");
+				scanf("%[^\n]%*c", condicao);
+				printf("\nEnte com o valor: ");
+				scanf("\n");
+				scanf("%[^\n]%*c", valor);
+				printf("\nEntre com a raridade: ");
+				scanf("\n");
+				scanf("%[^\n]%*c", raridade);
+				
+				strcpy(i->tipo,tipo);
+				strcpy(i->nome,nome);
+				strcpy(i->condicao,condicao);
+				strcpy(i->valor,valor);
+				strcpy(i->raridade,raridade);
+				
+				cadastrandoItem(i);	
+				break;
+				
+			case 2:
+				system("cls");
+				
+				lerItens();
+				printf("\n\n");
+				system("pause");
+				
+				system("cls");
+				break;
+			
+			case 3:
+				system("cls");
+				
+				removerItens();
+				printf("\n\n");
+				system("pause");
+				
+				system("cls");
+				break;
+			
+			case 0:
+				break;
+		}
+		
+		system("pause");
+		}
 }
 
 void cadastrandoItem(Item *i){
